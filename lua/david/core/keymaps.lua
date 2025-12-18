@@ -21,6 +21,9 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 -- remember yanked
 vim.keymap.set("v", "p", '"_dp', opts)
 
+-- add delete on x in visual mode
+vim.keymap.set('v', 'x', '"_d', opts)
+
 -- Copies or Yank to system clipboard
 vim.keymap.set("n", "<leader>Y", [["+Y]], opts)
 
@@ -30,6 +33,7 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 -- ctrl c as escape cuz Im lazy to reach up to the esc key
 vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("n", "<C-c>", ":nohl<CR>", { desc = "Clear search hl", silent = true })
+
 -- format without prettier using the built in
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
@@ -91,3 +95,7 @@ vim.keymap.set("n", "<leader>lx", function()
     })
 end, { desc = "Toggle LSP diagnostics" })
 
+-- Add Keymaps To Clean Up ^M when coping from windows to wsl
+vim.keymap.set("n", ",m", function()
+    vim.cmd([[%s/\r//g]])
+end, opts)
